@@ -2,7 +2,8 @@
 
 
 import { COLORS } from '@/utils/Colors';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function HomeScreen() {
@@ -40,11 +41,26 @@ export default function HomeScreen() {
       style={styles.container}
       behavior={'padding'}
       keyboardVerticalOffset={400}>
+
+        {/* HEDAER! */}
       <View style={styles.header}>
         <View style={styles.logo}>
           <Image source={require('@/assets/images/pocket-logo.png')} style={styles.logoIcon} />
         </View>
         <Text style={styles.title}>Log In</Text>
+      </View>
+
+      {/* BUTTONS@!*/}
+        <View style={styles.buttonSection}>
+        <TouchableOpacity style={styles.button} onPress={() => handleSocialLogin('oauth_apple')}>
+          <AntDesign name="apple" size={20} color="#000000" />
+          <Text style={styles.buttonText}>Continue with Apple</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => handleSocialLogin('oauth_google')}>
+          <AntDesign name="google" size={20} color="#000000" />
+          <Text style={styles.buttonText}>Continue with Google</Text>
+        </TouchableOpacity>
       </View>
       </KeyboardAvoidingView>
   )
