@@ -5,7 +5,7 @@ import { COLORS } from '@/utils/Colors';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function HomeScreen() {
@@ -93,6 +93,34 @@ export default function HomeScreen() {
             <Text style={{ color: '#4A90E2', fontWeight: 'bold' }}>Skip for now</Text>
           </TouchableOpacity>
         </Link>
+      </View>
+
+       <View style={styles.footer}>
+        <Text style={styles.termsText}>
+          By proceeding, you agree to:{'\n'}
+          Pocket&apos;s{' '}
+          <Text style={styles.link} onPress={() => openLink()}>
+            Terms of Service
+          </Text>{' '}
+          and{' '}
+          <Text style={styles.link} onPress={() => openLink()}>
+            Privacy Notice
+          </Text>
+          .{'\n'}
+          Mozilla Accounts{' '}
+          <Text style={styles.link} onPress={() => openLink()}>
+            Terms of Service
+          </Text>{' '}
+          and{' '}
+          <Text style={styles.link} onPress={() => openLink()}>
+            Privacy Notice
+          </Text>
+          .
+        </Text>
+        <Button
+          title="Test Sentry"
+          onPress={() => {}}
+        />
       </View>
       </KeyboardAvoidingView>
   )
