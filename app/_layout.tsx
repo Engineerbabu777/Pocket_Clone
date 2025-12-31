@@ -8,19 +8,17 @@ import React from 'react';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 const Layout = () => {
-  return (
-    <KeyboardProvider>
-          <ClerkProvider tokenCache={tokenCache}>
+    return (
+        <KeyboardProvider>
+            <ClerkProvider tokenCache={tokenCache}>
+                <Stack>
+                    <Stack.Screen name='index' options={{ headerShown: false }} />
+                </Stack>
+            </ClerkProvider>
 
-    
-    <Stack>
-        <Stack.Screen name='index' options={{ headerShown:false }} />
-    </Stack>
-          </ClerkProvider>
+        </KeyboardProvider>
 
-    </KeyboardProvider>
-
-  )
+    )
 }
 
 export default Layout
