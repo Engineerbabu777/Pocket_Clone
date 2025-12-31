@@ -3,7 +3,8 @@
 
 import { COLORS } from '@/utils/Colors';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Link } from 'expo-router';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function HomeScreen() {
@@ -68,6 +69,25 @@ export default function HomeScreen() {
         <View style={styles.line} />
         <Text style={styles.orText}>OR</Text>
         <View style={styles.line} />
+      </View>
+
+      {/* EMAIL INPUT! */}
+       <View style={styles.emailSection}>
+        <TextInput
+          style={styles.emailInput}
+          placeholder="Email"
+          placeholderTextColor="#999"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TouchableOpacity style={styles.nextButton}>
+          <Text style={styles.nextButtonText}>Next</Text>
+        </TouchableOpacity>
+        <Link href="/(tabs)/home" asChild replace>
+          <TouchableOpacity style={{ marginTop: 16, alignSelf: 'center' }}>
+            <Text style={{ color: '#4A90E2', fontWeight: 'bold' }}>Skip for now</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
       </KeyboardAvoidingView>
   )
