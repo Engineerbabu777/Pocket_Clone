@@ -6,8 +6,13 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
+import * as WebBrowser from 'expo-web-browser';
 
 export default function HomeScreen() {
+
+      const openLink = () => {
+    WebBrowser.openBrowserAsync('https://galaxies.dev');
+  };
 
       const handleSocialLogin = async (provider: string) => {
     // try {
