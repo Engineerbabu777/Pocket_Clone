@@ -62,6 +62,13 @@ export default function HomeScreen() {
           <Text style={styles.buttonText}>Continue with Google</Text>
         </TouchableOpacity>
       </View>
+
+      {/* DIVIDER! */}
+       <View style={styles.divider}>
+        <View style={styles.line} />
+        <Text style={styles.orText}>OR</Text>
+        <View style={styles.line} />
+      </View>
       </KeyboardAvoidingView>
   )
 }
