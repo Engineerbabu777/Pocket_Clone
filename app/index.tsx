@@ -6,6 +6,35 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function HomeScreen() {
+
+      const handleSocialLogin = async (provider: string) => {
+    // try {
+    //   // Start the authentication process by calling `startSSOFlow()`
+    //   const { createdSessionId, setActive, signIn, signUp } = await startSSOFlow({
+    //     strategy: provider as OAuthStrategy,
+    //   });
+
+    //   // If sign in was successful, set the active session
+    //   if (createdSessionId) {
+    //     setActive!({
+    //       session: createdSessionId,
+    //       navigate: async ({ session }) => {
+    //         // router.replace('/(tabs)/home');
+    //       },
+    //     });
+    //   } else {
+    //     // If there is no `createdSessionId`,
+    //     // there are missing requirements, such as MFA
+    //     // Use the `signIn` or `signUp` returned from `startSSOFlow`
+    //     // to handle next steps
+    //   }
+    // } catch (err) {
+    //   // See https://clerk.com/docs/custom-flows/error-handling
+    //   // for more info on error handling
+    //   console.error(JSON.stringify(err, null, 2));
+    // }
+  };
+
   return (
   <KeyboardAvoidingView
       style={styles.container}
