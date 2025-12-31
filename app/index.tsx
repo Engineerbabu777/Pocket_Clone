@@ -2,14 +2,22 @@
 
 
 import { COLORS } from '@/utils/Colors';
-import { Redirect } from 'expo-router';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 
 export default function HomeScreen() {
   return (
-   <Redirect href={"/saves"}/>
+  <KeyboardAvoidingView
+      style={styles.container}
+      behavior={'padding'}
+      keyboardVerticalOffset={400}>
+      <View style={styles.header}>
+        <View style={styles.logo}>
+          <Image source={require('@/assets/images/pocket-logo.png')} style={styles.logoIcon} />
+        </View>
+        <Text style={styles.title}>Log In</Text>
+      </View>
+      </KeyboardAvoidingView>
   )
 }
 
