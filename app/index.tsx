@@ -21,7 +21,7 @@ export default function HomeScreen() {
       const handleSocialLogin = async (provider: string) => {
     try {
       // Start the authentication process by calling `startSSOFlow()`
-      const { createdSessionId, setActive, signIn, signUp } = await startSSOFlow({
+      const { createdSessionId, setActive } = await startSSOFlow({
         strategy: provider as OAuthStrategy,
       });
 
