@@ -46,7 +46,8 @@ export default function HomeScreen() {
   <KeyboardAvoidingView
       style={styles.container}
       behavior={'padding'}
-      keyboardVerticalOffset={400}>
+    //   keyboardVerticalOffset={400}
+      >
 
         {/* HEDAER! */}
       <View style={styles.header}>
