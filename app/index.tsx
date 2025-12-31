@@ -2,10 +2,13 @@
 
 
 import React from 'react'
+import { View } from 'react-native'
 
 
 export default function HomeScreen() {
   return (
-    <div>HomeScreen</div>
+   <View>
+    
+   </View>
   )
 }
