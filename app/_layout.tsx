@@ -9,10 +9,11 @@ import { KeyboardProvider } from 'react-native-keyboard-controller'
 const Layout = () => {
   return (
     <KeyboardProvider>
-
-    <Stack >
+    
+    <Stack>
         <Stack.Screen name='index' options={{ headerShown:false }} />
     </Stack>
+
     </KeyboardProvider>
 
   )
