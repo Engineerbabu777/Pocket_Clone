@@ -3,6 +3,12 @@ import { StyleSheet } from "react-native";
 
 
 
+interface ArticlesFeedProps {
+  maxItems?: number;
+  feedSource?: 'expo' | 'react-native';
+  title?: string;
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
