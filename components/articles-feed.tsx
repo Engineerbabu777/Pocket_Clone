@@ -3,6 +3,8 @@ import { StyleSheet, View } from "react-native";
 
 
 
+
+
 interface ArticlesFeedProps {
   maxItems?: number;
   feedSource?: 'expo' | 'react-native';
@@ -16,7 +18,6 @@ export default function ArticlesFeed({
 }: ArticlesFeedProps) {
     return (
         <View style={styles.container}>
-            {/* Your component content */}
         </View>
     );
 }
