@@ -24,3 +24,18 @@ export const savedItems = sqliteTable('saved_items', {
   created_at: text('created_at').default('CURRENT_TIMESTAMP'),
   updated_at: text('updated_at').default('CURRENT_TIMESTAMP'),
 });
+
+export const rssArticles = sqliteTable('rss_articles', {
+  id: text('id').primaryKey(),
+  title: text('title').notNull(),
+  url: text('url').notNull(),
+  description: text('description'),
+  published_date: text('published_date'),
+  author: text('author'),
+  category: text('category'),
+  image_url: text('image_url'),
+  source: text('source').notNull(),
+  estimated_read_time: integer('estimated_read_time').default(1),
+  feed_url: text('feed_url').notNull(),
+  created_at: text('created_at').default('CURRENT_TIMESTAMP'),
+});
