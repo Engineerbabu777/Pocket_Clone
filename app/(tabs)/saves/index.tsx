@@ -40,6 +40,21 @@ export default function SavesScreen() {
     }
   };
 
+   const handleToggleFavorite = async (item: SavedItem) => {
+    try {
+      await drizzleDb
+        .update(savedItems)
+        .set({ is_favorite: !item.is_favorite })
+        .where(eq(savedItems.id, item.id));
+
+      setItems((prev) =>
+        prev.map((i) => (i.id === item.id ? { ...i, is_favorite: !i.is_favorite } : i))
+      );
+    } catch (error) {
+      console.error('Failed to toggle favorite:', error);
+    }
+  };
+
   useFocusEffect(
     useCallback(() => {
       loadSavedItems();
