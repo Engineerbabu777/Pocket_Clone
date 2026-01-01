@@ -192,7 +192,20 @@ const fetchFreshArticles = async () => {
         <Text style={styles.loadingText}>Loading articles...</Text>
       </View>
     );
+
+
   }
+
+    const renderHeader = () => {
+    if (title) {
+      return (
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>{title}</Text>
+        </View>
+      );
+    }
+    return null;
+  };
 
 
 
