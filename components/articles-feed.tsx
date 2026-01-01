@@ -1,6 +1,6 @@
-import { RssArticle, rssArticles } from "@/db/schema";
+import { RssArticle, rssArticles, savedItems } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
@@ -176,6 +176,50 @@ const fetchFreshArticles = async () => {
     }
   };
 
+   const handleSaveArticle = async (article: RssArticle) => {
+    try {
+    //   console.log('🚀 ~ handleSaveArticle ~ user:', user);
+
+      // Add to saved items
+      const itemId = Crypto.randomUUID();
+      // Check if the article is already saved
+      const existing = await drizzleDb
+        .select()
+        .from(savedItems)
+        .where(eq(savedItems.url, article.url));
+
+      if (existing.length > 0) {
+        console.log('🚀 ~ handleSaveArticle ~ existing:', existing);
+        // Already saved, do nothing or show a message
+        return;
+      }
+      const response = await fetch('/api/parse-url', {
+        method: 'POST',
+        body: JSON.stringify({ url: article.url }),
+      });
+      const result = await response.json();
+
+      await drizzleDb.insert(savedItems).values({
+        id: itemId,
+        url: article.url,
+        title: article.title,
+        excerpt: article.description,
+        image_url: article.image_url,
+        domain: new URL(article.url).hostname,
+        reading_time: article.estimated_read_time,
+        user_id: '1',
+        parsing_status: 'parsed',
+        content: result.data.content,
+      });
+
+      // Update local state
+      setArticles((prev) => prev.map((a) => (a.id === article.id ? { ...a } : a)));
+    //   router.push(`/(modal)/success`);
+    } catch (error) {
+      console.error('Failed to save article:', error);
+    }
+  };
+
     useEffect(() => {
     loadArticles();
   }, []);
@@ -206,6 +250,32 @@ const fetchFreshArticles = async () => {
     }
     return null;
   };
+
+//     const renderItem = ({ item, index }: { item: RssArticle; index: number }) => {
+//     if (index === 0) {
+//       return (
+//         <>
+//           {renderHeader()}
+//           <ArticleCard article={item} onSave={handleSaveArticle} variant="featured" />
+//           <View style={styles.separator} />
+//           {articles.length > 1 && (
+//             <ScrollView
+//               horizontal
+//               showsHorizontalScrollIndicator={false}
+//               contentContainerStyle={styles.horizontalScrollContent}
+//               style={styles.horizontalScroll}>
+//               {articles.slice(1).map((article) => (
+//                 <View key={article.id} style={styles.compactCardWrapper}>
+//                   <ArticleCard article={article} onSave={handleSaveArticle} variant="compact" />
+//                 </View>
+//               ))}
+//             </ScrollView>
+//           )}
+//         </>
+//       );
+//     }
+//     return null;
+//   };
 
 
 
