@@ -2,7 +2,7 @@
   "expo": {
     "name": "pocket_clone",
     "slug": "pocket_clone",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pocketclone",
@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.eas.prod.financeiq.eas4.pocket-clone"
+      "bundleIdentifier": "com.com.test.expo.x56.pocket-clone"
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +21,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.eas.prod.financeiq.eas4.pocket_clone"
+      "package": "com.com.test.expo.x56.pocket_clone"
     },
     "web": {
       "output": "server",
@@ -55,7 +55,8 @@
           "project": "pocket-clone",
           "organization": "awais-mumtaz"
         }
-      ]
+      ],
+      "@howincodes/expo-dynamic-app-icon"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -64,7 +65,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "a2e97afd-81b6-420c-b254-b127dd01cd6a"
+        "projectId": "dcfcf4d5-4ebb-434b-8d2a-3f1566430e41"
       }
     }
   }

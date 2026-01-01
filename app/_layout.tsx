@@ -7,7 +7,7 @@ import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import { isRunningInExpoGo } from 'expo';
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin';
 import { Stack, useNavigationContainerRef } from 'expo-router';
-import { openDatabaseSync } from 'expo-sqlite';
+import { openDatabaseSync, SQLiteProvider } from 'expo-sqlite';
 import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
@@ -90,10 +90,14 @@ const RootLayout = () => {
         <ClerkProvider tokenCache={tokenCache}>
             <ClerkLoaded>
                 <KeyboardProvider>
-                    <Suspense fallback={<ActivityIndicator />}>
-
-                        <RootNav />
-                    </Suspense>
+                   <Suspense fallback={<ActivityIndicator />}>
+              <SQLiteProvider
+                databaseName={DATABASE_NAME}
+                options={{ enableChangeListener: true }}
+                useSuspense>
+                <RootNav />
+              </SQLiteProvider>
+            </Suspense>
                 </KeyboardProvider>
             </ClerkLoaded>
         </ClerkProvider>
