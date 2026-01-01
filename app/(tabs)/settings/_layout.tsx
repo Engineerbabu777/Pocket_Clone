@@ -17,6 +17,14 @@ export default function SettingsLayout() {
           headerLargeTitleShadowVisible: false,
         }}
       />
+      <Stack.Screen
+        name="icon"
+        options={{
+          title: 'Saves',
+          headerLargeTitle: true,
+          headerLargeTitleShadowVisible: false,
+        }}
+      />
     </Stack>
   );
 }
