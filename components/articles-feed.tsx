@@ -5,7 +5,7 @@ import { drizzle } from 'drizzle-orm/expo-sqlite';
 import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from 'expo-sqlite';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ArticleCardProps {
@@ -175,6 +175,16 @@ const fetchFreshArticles = async () => {
       setRefreshing(false);
     }
   };
+
+    useEffect(() => {
+    loadArticles();
+  }, []);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetchFreshArticles();
+  };
+
 
 
     return (
