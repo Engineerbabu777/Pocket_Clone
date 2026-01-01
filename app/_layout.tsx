@@ -29,6 +29,20 @@ const RootNav = () => {
 
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
+            <Stack.Screen
+                name="(modal)/success"
+                options={{
+                    presentation: 'formSheet',
+                    sheetAllowedDetents: [0.5, 1],
+                    sheetGrabberVisible: true,
+                    title: '',
+                    headerShadowVisible: false,
+                    contentStyle: {
+                        height: '100%',
+                    },
+                }}
+            />
+
         </Stack>
     );
 };
