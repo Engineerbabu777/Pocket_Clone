@@ -1,15 +1,20 @@
 import migrations from '@/drizzle/migrations';
 import { ClerkLoaded, ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
+import * as Sentry from '@sentry/react-native';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
+import { isRunningInExpoGo } from 'expo';
 import { useDrizzleStudio } from 'expo-drizzle-studio-plugin';
-import { Stack } from 'expo-router';
+import { Stack, useNavigationContainerRef } from 'expo-router';
 import { openDatabaseSync } from 'expo-sqlite';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
-import * as Sentry from '@sentry/react-native';
+
+const navigationIntegration = Sentry.reactNavigationIntegration({
+  enableTimeToInitialDisplay: !isRunningInExpoGo(),
+});
 
 Sentry.init({
   dsn: 'https://20b471e680646a1e8554173bb7d19110@o4510633964142593.ingest.us.sentry.io/4510633968599040',
@@ -27,7 +32,7 @@ Sentry.init({
   integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
 
   // uncomment the line below to enable Spotlight (https://spotlightjs.com)
-  // spotlight: __DEV__,
+  spotlight: __DEV__,
 });
 
 
@@ -72,6 +77,13 @@ const RootLayout = () => {
     const expoDb = openDatabaseSync(DATABASE_NAME);
     const db = drizzle(expoDb);
     const { success, error } = useMigrations(db, migrations);
+
+  const ref = useNavigationContainerRef();
+  useEffect(() => {
+    if (ref) {
+      navigationIntegration.registerNavigationContainer(ref);
+    }
+  }, [ref]);
 
     return (
 
