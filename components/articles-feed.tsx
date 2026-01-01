@@ -1,5 +1,6 @@
 import { RssArticle } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -109,6 +110,8 @@ export default function ArticlesFeed({
       const [articles, setArticles] = useState<RssArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+
+    const router = useRouter();
 
     return (
         <View style={styles.container}>
