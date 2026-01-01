@@ -56,7 +56,8 @@
           "organization": "awais-mumtaz"
         }
       ],
-      "@howincodes/expo-dynamic-app-icon"
+      "@howincodes/expo-dynamic-app-icon",
+      "react-native-legal"
     ],
     "experiments": {
       "typedRoutes": true,
