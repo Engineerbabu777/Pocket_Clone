@@ -24,7 +24,7 @@
       "package": "com.eas.prod.financeiq.eas4.pocket_clone"
     },
     "web": {
-      "output": "static",
+      "output": "server",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
