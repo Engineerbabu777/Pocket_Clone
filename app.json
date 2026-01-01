@@ -57,7 +57,8 @@
         }
       ],
       "@howincodes/expo-dynamic-app-icon",
-      "react-native-legal"
+      "react-native-legal",
+      "expo-share-intent"
     ],
     "experiments": {
       "typedRoutes": true,

@@ -7,6 +7,7 @@ import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import { useUser } from '@clerk/clerk-expo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Sentry from '@sentry/react-native';
+import { useShareIntentContext } from 'expo-share-intent';
 import { useEffect } from 'react';
 import Purchases, { LOG_LEVEL } from 'react-native-purchases';
 
