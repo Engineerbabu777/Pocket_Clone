@@ -1,24 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import SavedItemCard from "@/components/saved-item-card";
-import { SavedItem, savedItems } from "@/db/schema";
-import { COLORS } from "@/utils/Colors";
-import { useUser } from "@clerk/clerk-expo";
-import { and, desc, eq, or } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/expo-sqlite";
-import { useFocusEffect } from "expo-router";
-import { useSQLiteContext } from "expo-sqlite";
-import { useCallback, useState } from "react";
-import { Share, StyleSheet, Text, View } from "react-native";
+import SavedItemCard from '@/components/saved-item-card';
+import { savedItems, type SavedItem } from '@/db/schema';
+import { COLORS } from '@/utils/Colors';
+import { useUser } from '@clerk/clerk-expo';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { and, desc, eq, or } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/expo-sqlite';
+import { Stack, useFocusEffect } from 'expo-router';
+import { useSQLiteContext } from 'expo-sqlite';
+import { useCallback, useState } from 'react';
+import { FlatList, Share, StyleSheet, Text, View } from 'react-native';
 
 export default function SavesScreen() {
-
   const [items, setItems] = useState<SavedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const { user } = useUser();
 
   const db = useSQLiteContext();
   const drizzleDb = drizzle(db);
-
 
   const loadSavedItems = async () => {
     try {
@@ -41,7 +39,13 @@ export default function SavesScreen() {
     }
   };
 
-   const handleToggleFavorite = async (item: SavedItem) => {
+  useFocusEffect(
+    useCallback(() => {
+      loadSavedItems();
+    }, [])
+  );
+
+  const handleToggleFavorite = async (item: SavedItem) => {
     try {
       await drizzleDb
         .update(savedItems)
@@ -56,7 +60,7 @@ export default function SavesScreen() {
     }
   };
 
-    const handleShare = async (item: SavedItem) => {
+  const handleShare = async (item: SavedItem) => {
     try {
       await Share.share({
         message: `${item.title || 'Check out this article'}\n${item.url}`,
@@ -66,12 +70,10 @@ export default function SavesScreen() {
     }
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      loadSavedItems();
-    }, [loadSavedItems])
-  );
-
+  const handleMore = (item: SavedItem) => {
+    // TODO: Implement more actions (archive, delete, etc.)
+    console.log('More actions for:', item.title);
+  };
 
   const renderItem = ({ item }: { item: SavedItem }) => (
     <SavedItemCard
@@ -85,19 +87,43 @@ export default function SavesScreen() {
   );
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <>
+      <Stack.Screen
+        options={{
+          headerSearchBarOptions: {
+            placeholder: 'Search',
+          },
+        }}
+      />
+      <FlatList
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+        contentInsetAdjustmentBehavior="automatic"
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ListHeaderComponent={() => (
+          <>
+            {loading ? (
+              <View style={styles.emptyState}>
+                <Text style={styles.emptyTitle}>Loading...</Text>
+              </View>
+            ) : items.length === 0 ? (
+              <View style={styles.emptyState}>
+                <View style={styles.emptyIcon}>
+                  <Ionicons name="heart" size={48} color={COLORS.textLight} />
+                </View>
+                <Text style={styles.emptyTitle}>No saves yet</Text>
+                <Text style={styles.emptyDescription}>Your saved articles will appear here</Text>
+              </View>
+            ) : null}
+          </>
+        )}
+      />
+    </>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
