@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import SavedItemCard from "@/components/saved-item-card";
 import { SavedItem, savedItems } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
 import { useUser } from "@clerk/clerk-expo";
@@ -69,6 +70,18 @@ export default function SavesScreen() {
     useCallback(() => {
       loadSavedItems();
     }, [loadSavedItems])
+  );
+
+
+  const renderItem = ({ item }: { item: SavedItem }) => (
+    <SavedItemCard
+      item={{
+        ...item,
+        onToggleFavorite: () => handleToggleFavorite(item),
+        onShare: () => handleShare(item),
+        onMore: () => handleMore(item),
+      }}
+    />
   );
 
   return (
