@@ -7,7 +7,7 @@ import { drizzle } from "drizzle-orm/expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useCallback, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Share, StyleSheet, Text, View } from "react-native";
 
 export default function SavesScreen() {
 
@@ -52,6 +52,16 @@ export default function SavesScreen() {
       );
     } catch (error) {
       console.error('Failed to toggle favorite:', error);
+    }
+  };
+
+    const handleShare = async (item: SavedItem) => {
+    try {
+      await Share.share({
+        message: `${item.title || 'Check out this article'}\n${item.url}`,
+      });
+    } catch (error) {
+      console.error('Failed to share:', error);
     }
   };
 
