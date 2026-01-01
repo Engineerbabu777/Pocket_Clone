@@ -1,6 +1,14 @@
+import { RssArticle } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
 import { StyleSheet, View } from "react-native";
 
+
+
+interface ArticleCardProps {
+  article: RssArticle;
+  onSave: (article: RssArticle) => void;
+  variant?: 'featured' | 'compact';
+}
 
 
 
