@@ -9,6 +9,26 @@ import { openDatabaseSync } from 'expo-sqlite';
 import { Suspense } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://20b471e680646a1e8554173bb7d19110@o4510633964142593.ingest.us.sentry.io/4510633968599040',
+
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  sendDefaultPii: true,
+
+  // Enable Logs
+  enableLogs: true,
+
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
 
 
 const DATABASE_NAME = 'pocket';
@@ -68,4 +88,4 @@ const RootLayout = () => {
     );
 };
 
-export default RootLayout;
+export default Sentry.wrap(RootLayout);

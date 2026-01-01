@@ -47,6 +47,14 @@
         {
           "launchMode": "most-recent"
         }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "pocket-clone",
+          "organization": "awais-mumtaz"
+        }
       ]
     ],
     "experiments": {
