@@ -1,5 +1,6 @@
 import { RssArticle, rssArticles } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
+import { desc } from "drizzle-orm";
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
@@ -121,24 +122,24 @@ export default function ArticlesFeed({
     const drizzleDb = drizzle(db);
 
 
-//      const loadArticles = async () => {
-//     try {
-//       const cachedArticles = await drizzleDb
-//         .select()
-//         .from(rssArticles)
-//         .orderBy(desc(rssArticles.published_date))
-//         .limit(maxItems);
+     const loadArticles = async () => {
+    try {
+      const cachedArticles = await drizzleDb
+        .select()
+        .from(rssArticles)
+        .orderBy(desc(rssArticles.published_date))
+        .limit(maxItems);
 
-//       if (cachedArticles.length > 0) {
-//         setArticles(cachedArticles);
-//         setLoading(false);
-//       } else {
-//         await fetchFreshArticles();
-//       }
-//     } catch (error) {
-//       console.error('Failed to load cached articles:', error);
-//     }
-//   };
+      if (cachedArticles.length > 0) {
+        setArticles(cachedArticles);
+        setLoading(false);
+      } else {
+        await fetchFreshArticles();
+      }
+    } catch (error) {
+      console.error('Failed to load cached articles:', error);
+    }
+  };
 
 const fetchFreshArticles = async () => {
     try {
@@ -166,7 +167,7 @@ const fetchFreshArticles = async () => {
         }));
 
         await drizzleDb.insert(rssArticles).values(articlesToInsert);
-        // await loadArticles();
+        await loadArticles();
       }
     } catch (error) {
       console.error('Failed to fetch fresh articles:', error);
