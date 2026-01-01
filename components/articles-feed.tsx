@@ -1,6 +1,6 @@
 import { RssArticle } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
-import { StyleSheet, View } from "react-native";
+import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 
 
@@ -8,6 +8,87 @@ interface ArticleCardProps {
   article: RssArticle;
   onSave: (article: RssArticle) => void;
   variant?: 'featured' | 'compact';
+}
+
+function ArticleCard({ article, onSave, variant = 'compact' }: ArticleCardProps) {
+  const hasImage = article.image_url && article.image_url.length > 0;
+
+  const handlePress = () => {
+    if (article.url) {
+      Linking.openURL(article.url);
+    }
+  };
+
+  if (variant === 'featured') {
+    return (
+      <TouchableOpacity style={styles.featuredCard} onPress={handlePress}>
+        {hasImage && (
+          <Image source={{ uri: article.image_url || '' }} style={styles.featuredImage} />
+        )}
+        <View style={styles.featuredContent}>
+          <Text style={styles.featuredTitle} numberOfLines={2}>
+            {article.title}
+          </Text>
+
+          <View style={styles.cardActions}>
+            <View style={styles.featuredMeta}>
+              <Text style={styles.metaText}>{article.source}</Text>
+              <Text style={styles.metaText}>• {article.estimated_read_time} min read</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.saveButton}
+              onPress={(e) => {
+                e.stopPropagation();
+                onSave(article);
+              }}>
+              <Image
+                source={require('@/assets/images/icon.png')}
+                style={{ width: 24, height: 24 }}
+              />
+
+              <Text style={styles.saveText}>Save</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  return (
+    <TouchableOpacity style={styles.compactCard} onPress={handlePress}>
+      <View style={styles.compactContent}>
+        {/* First row: Title and Image */}
+        <View style={styles.compactTopRow}>
+          <View style={styles.compactTitleContainer}>
+            <Text style={styles.compactTitle} numberOfLines={2}>
+              {article.title}
+            </Text>
+          </View>
+          {hasImage && (
+            <Image source={{ uri: article.image_url || '' }} style={styles.compactImage} />
+          )}
+        </View>
+
+        {/* Second row: Meta and Save button */}
+        <View style={styles.compactBottomRow}>
+          <View style={styles.compactMeta}>
+            <Text style={styles.metaText}>{article.source}</Text>
+            <Text style={styles.metaText}>• {article.estimated_read_time} min read</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.compactSaveButton}
+            onPress={(e) => {
+              e.stopPropagation();
+              onSave(article);
+            }}>
+            <Image source={require('@/assets/images/icon.png')} style={{ width: 20, height: 20 }} />
+
+            <Text style={styles.saveText}>Save</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 
