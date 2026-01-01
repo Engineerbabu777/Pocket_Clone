@@ -1,5 +1,5 @@
 import { COLORS } from "@/utils/Colors";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 
 
@@ -7,6 +7,18 @@ interface ArticlesFeedProps {
   maxItems?: number;
   feedSource?: 'expo' | 'react-native';
   title?: string;
+}
+
+export default function ArticlesFeed({
+  maxItems = 10,
+  feedSource = 'react-native',
+  title,
+}: ArticlesFeedProps) {
+    return (
+        <View style={styles.container}>
+            {/* Your component content */}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
