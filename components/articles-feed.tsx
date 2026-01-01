@@ -1,5 +1,6 @@
 import { RssArticle } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
+import { useState } from "react";
 import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 
@@ -105,6 +106,10 @@ export default function ArticlesFeed({
   feedSource = 'react-native',
   title,
 }: ArticlesFeedProps) {
+      const [articles, setArticles] = useState<RssArticle[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
     return (
         <View style={styles.container}>
         </View>
