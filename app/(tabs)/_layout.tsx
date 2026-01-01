@@ -1,20 +1,16 @@
 import { COLORS } from '@/utils/Colors';
 import { Platform } from 'react-native';
 
-// Import components for both platforms
 import { Tabs } from 'expo-router';
 import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 
-// Import an icon set for the Android version
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-// Component for iOS using NativeTabs
 function IosTabsLayout() {
   return (
     <NativeTabs blurEffect="systemChromeMaterial" tintColor={COLORS.textDark}>
       <NativeTabs.Trigger name="home">
         <Label>Home</Label>
-        {/* The `drawable` prop is ignored on iOS, so it's safe to leave or remove */}
         <Icon sf={{ default: 'house', selected: 'house.fill' }} />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="saves">
@@ -29,16 +25,15 @@ function IosTabsLayout() {
   );
 }
 
-// Component for Android using standard Tabs
 function AndroidTabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false, // Optional: hide headers on tab screens
+        headerShown: false, 
         tabBarActiveTintColor: COLORS.textDark,
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
-          backgroundColor: '#f5f5f5', // A light background color for the tab bar
+          backgroundColor: '#f5f5f5', 
         },
       }}>
       <Tabs.Screen
@@ -72,7 +67,6 @@ function AndroidTabsLayout() {
   );
 }
 
-// The main layout component conditionally renders the correct layout
 export default function RootLayout() {
   if (Platform.OS === 'ios') {
     return <IosTabsLayout />;
