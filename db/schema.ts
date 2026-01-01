@@ -39,3 +39,13 @@ export const rssArticles = sqliteTable('rss_articles', {
   feed_url: text('feed_url').notNull(),
   created_at: text('created_at').default('CURRENT_TIMESTAMP'),
 });
+
+
+
+
+// Export types for use throughout the app
+export type SavedItem = typeof savedItems.$inferSelect;
+export type RssArticle = typeof rssArticles.$inferSelect;
+
+export type InsertSavedItem = typeof savedItems.$inferInsert;
+export type InsertRssArticle = typeof rssArticles.$inferInsert;
