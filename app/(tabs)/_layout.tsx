@@ -34,11 +34,11 @@ function AndroidTabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false, 
+        headerShown: false,
         tabBarActiveTintColor: COLORS.textDark,
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
-          backgroundColor: '#f5f5f5', 
+          backgroundColor: '#f5f5f5',
         },
       }}>
       <Tabs.Screen
@@ -74,12 +74,12 @@ function AndroidTabsLayout() {
 
 export default function TabRootLayout() {
 
-   const { hasShareIntent, shareIntent, resetShareIntent, error } = useShareIntentContext();
+  const { hasShareIntent, shareIntent, resetShareIntent, error } = useShareIntentContext();
   const router = useRouter();
   const user = useUser();
 
 
-    useEffect(() => {
+  useEffect(() => {
     if (hasShareIntent && shareIntent.type === 'weburl' && shareIntent.webUrl) {
       router.push(`/(modal)/add-url?intent=${encodeURIComponent(shareIntent?.webUrl ?? '')}`);
       resetShareIntent();

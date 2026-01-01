@@ -58,7 +58,14 @@
       ],
       "@howincodes/expo-dynamic-app-icon",
       "react-native-legal",
-      "expo-share-intent"
+      [
+        "expo-share-intent",
+        {
+          "iosActivationRules": {
+            "NSExtensionActivationSupportsWebURLWithMaxCount": 1
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
