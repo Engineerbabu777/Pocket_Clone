@@ -6,7 +6,7 @@ import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from 'expo-sqlite';
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Image, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ArticleCardProps {
     article: RssArticle;
@@ -251,31 +251,31 @@ const fetchFreshArticles = async () => {
     return null;
   };
 
-//     const renderItem = ({ item, index }: { item: RssArticle; index: number }) => {
-//     if (index === 0) {
-//       return (
-//         <>
-//           {renderHeader()}
-//           <ArticleCard article={item} onSave={handleSaveArticle} variant="featured" />
-//           <View style={styles.separator} />
-//           {articles.length > 1 && (
-//             <ScrollView
-//               horizontal
-//               showsHorizontalScrollIndicator={false}
-//               contentContainerStyle={styles.horizontalScrollContent}
-//               style={styles.horizontalScroll}>
-//               {articles.slice(1).map((article) => (
-//                 <View key={article.id} style={styles.compactCardWrapper}>
-//                   <ArticleCard article={article} onSave={handleSaveArticle} variant="compact" />
-//                 </View>
-//               ))}
-//             </ScrollView>
-//           )}
-//         </>
-//       );
-//     }
-//     return null;
-//   };
+    const renderItem = ({ item, index }: { item: RssArticle; index: number }) => {
+    if (index === 0) {
+      return (
+        <>
+          {renderHeader()}
+          <ArticleCard article={item} onSave={handleSaveArticle} variant="featured" />
+          <View style={styles.separator} />
+          {articles.length > 1 && (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.horizontalScrollContent}
+              style={styles.horizontalScroll}>
+              {articles.slice(1).map((article) => (
+                <View key={article.id} style={styles.compactCardWrapper}>
+                  <ArticleCard article={article} onSave={handleSaveArticle} variant="compact" />
+                </View>
+              ))}
+            </ScrollView>
+          )}
+        </>
+      );
+    }
+    return null;
+  };
 
 
 
