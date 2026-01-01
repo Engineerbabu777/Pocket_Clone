@@ -6,7 +6,7 @@ import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from 'expo-sqlite';
 import { useEffect, useState } from "react";
-import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ArticleCardProps {
     article: RssArticle;
@@ -184,6 +184,15 @@ const fetchFreshArticles = async () => {
     setRefreshing(true);
     fetchFreshArticles();
   };
+
+    if (loading && articles.length === 0) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="small" color={COLORS.primary} />
+        <Text style={styles.loadingText}>Loading articles...</Text>
+      </View>
+    );
+  }
 
 
 
