@@ -1,6 +1,7 @@
-import { RssArticle } from "@/db/schema";
+import { RssArticle, rssArticles } from "@/db/schema";
 import { COLORS } from "@/utils/Colors";
 import { drizzle } from 'drizzle-orm/expo-sqlite';
+import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from 'expo-sqlite';
 import { useState } from "react";
@@ -138,6 +139,41 @@ export default function ArticlesFeed({
 //       console.error('Failed to load cached articles:', error);
 //     }
 //   };
+
+const fetchFreshArticles = async () => {
+    try {
+      // Fetch from specified RSS feed
+      const response = await fetch(`/api/rss-feed?url=${feedSource}`);
+      const result = await response.json();
+
+      if (result.success) {
+        // Clear existing articles and insert new ones
+        await drizzleDb.delete(rssArticles);
+
+        const articlesToInsert = result.data.items.map((item: any) => ({
+          id: Crypto.randomUUID(),
+          title: item.title,
+          url: item.url,
+          description: item.description,
+          published_date: item.publishedDate, // Now in ISO format for proper sorting
+          author: item.author,
+          category: item.category,
+          image_url: item.image,
+          source: item.source,
+          estimated_read_time: item.estimatedReadTime,
+          feed_url: result.data.feedUrl,
+          is_saved: false,
+        }));
+
+        await drizzleDb.insert(rssArticles).values(articlesToInsert);
+        // await loadArticles();
+      }
+    } catch (error) {
+      console.error('Failed to fetch fresh articles:', error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
 
     return (
