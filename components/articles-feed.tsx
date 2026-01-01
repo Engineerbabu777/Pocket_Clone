@@ -120,6 +120,26 @@ export default function ArticlesFeed({
     const drizzleDb = drizzle(db);
 
 
+//      const loadArticles = async () => {
+//     try {
+//       const cachedArticles = await drizzleDb
+//         .select()
+//         .from(rssArticles)
+//         .orderBy(desc(rssArticles.published_date))
+//         .limit(maxItems);
+
+//       if (cachedArticles.length > 0) {
+//         setArticles(cachedArticles);
+//         setLoading(false);
+//       } else {
+//         await fetchFreshArticles();
+//       }
+//     } catch (error) {
+//       console.error('Failed to load cached articles:', error);
+//     }
+//   };
+
+
     return (
         <View style={styles.container}>
         </View>
