@@ -1,7 +1,67 @@
-import { COLORS } from "@/utils/Colors";
-import { StyleSheet } from "react-native";
+import { type SavedItem } from '@/db/schema';
+import { COLORS } from '@/utils/Colors';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Link } from 'expo-router';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+// interface SavedItemWithActions extends SavedItem {
+//   onToggleFavorite: () => void;
+//   onShare: () => void;
+//   onMore: () => void;
+// }
 
+interface SavedItemCardProps {
+  item: SavedItem;
+  onToggleFavorite: () => void;
+  onShare: () => void;
+  onMore: () => void;
+}
+
+export default function SavedItemCard({
+  item,
+  onToggleFavorite,
+  onShare,
+  onMore,
+}: SavedItemCardProps) {
+  const hasImage = item.image_url && item.image_url.length > 0;
+
+  return (
+    <View style={styles.itemContainer}>
+      <Link href={`/saves`} asChild>
+        <TouchableOpacity style={styles.itemContent}>
+          <View style={styles.itemText}>
+            <Text style={styles.itemTitle} numberOfLines={3}>
+              {item.title || item.url}
+            </Text>
+            <Text style={styles.itemSubtitle}>
+              {item.domain} {item.reading_time && `• ${item.reading_time} min`}
+            </Text>
+          </View>
+
+          {hasImage && <Image source={{ uri: item.image_url || '' }} style={styles.itemImage} />}
+        </TouchableOpacity>
+      </Link>
+
+      <View style={styles.itemActions}>
+        <TouchableOpacity style={styles.actionButton} onPress={onToggleFavorite}>
+          <Ionicons
+            name={item.is_favorite ? 'star' : 'star-outline'}
+            size={20}
+            color={item.is_favorite ? '#FFD700' : COLORS.textLight}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionButton} onPress={onShare}>
+          <Ionicons name="share-outline" size={20} color={COLORS.textLight} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionButton} onPress={onMore}>
+          <Ionicons name="ellipsis-horizontal" size={20} color={COLORS.textLight} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
 
 
 const styles = StyleSheet.create({
