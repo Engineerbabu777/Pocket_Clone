@@ -43,7 +43,6 @@ export const rssArticles = sqliteTable('rss_articles', {
 
 
 
-// Export types for use throughout the app
 export type SavedItem = typeof savedItems.$inferSelect;
 export type RssArticle = typeof rssArticles.$inferSelect;
 
