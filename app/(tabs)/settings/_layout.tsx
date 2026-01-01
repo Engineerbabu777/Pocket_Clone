@@ -18,9 +18,9 @@ export default function SettingsLayout() {
         }}
       />
       <Stack.Screen
-        name="icon"
+        name="icon/index"
         options={{
-          title: 'Saves',
+          title: 'App Icons',
           headerLargeTitle: true,
           headerLargeTitleShadowVisible: false,
         }}
