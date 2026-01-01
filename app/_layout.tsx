@@ -40,43 +40,57 @@ const DATABASE_NAME = 'pocket';
 
 const RootNav = () => {
 
-    const db = openDatabaseSync(DATABASE_NAME);
-    useDrizzleStudio(db);
+  const db = openDatabaseSync(DATABASE_NAME);
+  useDrizzleStudio(db);
 
 
-    const { isSignedIn } = useAuth();
+  const { isSignedIn } = useAuth();
 
-    return (
-        <Stack>
-            <Stack.Protected guard={!isSignedIn}>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-            </Stack.Protected>
+  return (
+    <Stack>
+      <Stack.Protected guard={!isSignedIn}>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack.Protected>
 
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-            <Stack.Screen
-                name="(modal)/success"
-                options={{
-                    presentation: 'formSheet',
-                    sheetAllowedDetents: [0.5, 1],
-                    sheetGrabberVisible: true,
-                    title: '',
-                    headerShadowVisible: false,
-                    contentStyle: {
-                        height: '100%',
-                    },
-                }}
-            />
+      <Stack.Screen
+        name="(modal)/success"
+        options={{
+          presentation: 'formSheet',
+          sheetAllowedDetents: [0.5, 1],
+          sheetGrabberVisible: true,
+          title: '',
+          headerShadowVisible: false,
+          contentStyle: {
+            height: '100%',
+          },
+        }}
+      />
 
-        </Stack>
-    );
+      <Stack.Screen
+        name="(modal)/add-url"
+        options={{
+          presentation: 'formSheet',
+          sheetAllowedDetents: [0.5, 1],
+          sheetGrabberVisible: true,
+          title: '',
+          headerShadowVisible: false,
+          contentStyle: {
+            height: '100%',
+          },
+        }}
+      />
+
+    </Stack>
+  );
 };
 
 const RootLayout = () => {
 
-    const expoDb = openDatabaseSync(DATABASE_NAME);
-    const db = drizzle(expoDb);
-    const { success, error } = useMigrations(db, migrations);
+  const expoDb = openDatabaseSync(DATABASE_NAME);
+  const db = drizzle(expoDb);
+  const { success, error } = useMigrations(db, migrations);
 
   const ref = useNavigationContainerRef();
   useEffect(() => {
@@ -85,23 +99,23 @@ const RootLayout = () => {
     }
   }, [ref]);
 
-    return (
+  return (
 
-        <ClerkProvider tokenCache={tokenCache}>
-            <ClerkLoaded>
-                <KeyboardProvider>
-                   <Suspense fallback={<ActivityIndicator />}>
-              <SQLiteProvider
-                databaseName={DATABASE_NAME}
-                options={{ enableChangeListener: true }}
-                useSuspense>
-                <RootNav />
-              </SQLiteProvider>
-            </Suspense>
-                </KeyboardProvider>
-            </ClerkLoaded>
-        </ClerkProvider>
-    );
+    <ClerkProvider tokenCache={tokenCache}>
+      <ClerkLoaded>
+        <KeyboardProvider>
+          <Suspense fallback={<ActivityIndicator />}>
+            <SQLiteProvider
+              databaseName={DATABASE_NAME}
+              options={{ enableChangeListener: true }}
+              useSuspense>
+              <RootNav />
+            </SQLiteProvider>
+          </Suspense>
+        </KeyboardProvider>
+      </ClerkLoaded>
+    </ClerkProvider>
+  );
 };
 
 export default Sentry.wrap(RootLayout);
